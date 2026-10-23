@@ -1,6 +1,0 @@
-Pandas
-Numpy
-Google-cloud-bigquery
-dbt-bigquery
-pm4py
-streamlit
