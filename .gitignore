@@ -1,0 +1,60 @@
+```gitignore
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+service-account*.json
+*service_account*.json
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS files
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Python testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Build and package files
+build/
+dist/
+*.egg-info/
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# dbt generated files
+dbt_careflow/target/
+dbt_careflow/logs/
+dbt_careflow/dbt_packages/
+
+# Google Cloud local configuration
+application_default_credentials.json
+
+# Optional: ignore generated analysis outputs
+# Uncomment the following lines if you do NOT want to upload them.
+# process_mining/outputs/
+```
