@@ -29,7 +29,7 @@ ACTIVITIES = [
     "Discharge",
 ]
 
-# Approximate durations in minutes for simulated activities.
+
 ACTIVITY_DURATIONS = {
     "Registration": (3, 10),
     "Triage": (5, 20),
@@ -52,7 +52,6 @@ def generate_patient_events(patient_number):
 
     case_id = f"CF{patient_number:04d}"
 
-    # Patients arrive throughout a simulated 30-day period.
     arrival_time = (
         pd.Timestamp("2026-01-01 08:00:00")
         + pd.Timedelta(minutes=random.randint(0, 30 * 24 * 60))
@@ -80,7 +79,7 @@ def generate_patient_events(patient_number):
         + random.randint(5, 45)
     )
 
-    # Select a care pathway.
+    
     pathway = random.choices(
         population=[
             "simple",
@@ -119,7 +118,7 @@ def generate_patient_events(patient_number):
                 minutes=random_duration("Triage")
             )
 
-    # Patients may require another doctor consultation.
+   
     if random.random() < 0.15:
         current_time += pd.Timedelta(minutes=random.randint(5, 20))
         events.append(("Doctor Consultation", current_time))
