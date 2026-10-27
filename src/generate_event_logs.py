@@ -5,10 +5,6 @@ import random
 import pandas as pd
 
 
-# ============================================================
-# CAREFLOW: SIMULATED HOSPITAL EHR EVENT LOG GENERATOR
-# Scope: Week 1 - EHR Simulation
-# ============================================================
 
 RANDOM_SEED = 42
 NUMBER_OF_PATIENTS = 200
@@ -108,8 +104,6 @@ def generate_patient_events(patient_number):
             minutes=random_duration("X-Ray")
         )
 
-    # Simulate operational rework.
-    # Some patients must return to Triage after a test.
     if pathway in ("imaging", "laboratory_and_imaging"):
         if random.random() < 0.40:
             current_time += pd.Timedelta(minutes=random.randint(2, 15))
@@ -139,7 +133,7 @@ def generate_patient_events(patient_number):
 
     events.append(("Discharge", current_time))
 
-    # Convert events into raw EHR-style records.
+   
     records = []
 
     for sequence_number, (activity, timestamp) in enumerate(events, start=1):
@@ -175,7 +169,7 @@ def main():
 
     event_log = pd.DataFrame(all_events)
 
-    # Sort events chronologically for the raw event log.
+
     event_log = event_log.sort_values(
         ["Event_Timestamp", "Patient_ID", "Event_ID"]
     ).reset_index(drop=True)
