@@ -11,6 +11,7 @@ NUMBER_OF_PATIENTS = 200
 
 random.seed(RANDOM_SEED)
 
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = PROJECT_ROOT / "data" / "raw"
 OUTPUT_FILE = OUTPUT_DIR / "hospital_event_logs.csv"
