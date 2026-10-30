@@ -3,9 +3,7 @@ from pathlib import Path
 import pandas as pd
 import pm4py
 
-# --------------------------------------------------
-# CAREFLOW: CLINICAL PATHWAY PROCESS MINING
-# --------------------------------------------------
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / "data" / "raw" / "hospital_event_logs.csv"
