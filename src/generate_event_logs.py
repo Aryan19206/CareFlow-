@@ -26,7 +26,6 @@ ACTIVITIES = [
     "Discharge",
 ]
 
-# Approximate durations in minutes for simulated activities.
 ACTIVITY_DURATIONS = {
     "Registration": (3, 10),
     "Triage": (5, 20),
@@ -58,7 +57,6 @@ def generate_patient_events(patient_number):
     events = []
     current_time = arrival_time
 
-    # The standard starting activities.
     events.append(("Registration", current_time))
     current_time += pd.Timedelta(
         minutes=random_duration("Registration")
@@ -77,7 +75,6 @@ def generate_patient_events(patient_number):
         + random.randint(5, 45)
     )
 
-    # Select a care pathway.
     pathway = random.choices(
         population=[
             "simple",
@@ -114,7 +111,6 @@ def generate_patient_events(patient_number):
                 minutes=random_duration("Triage")
             )
 
-    # Patients may require another doctor consultation.
     if random.random() < 0.15:
         current_time += pd.Timedelta(minutes=random.randint(5, 20))
         events.append(("Doctor Consultation", current_time))
@@ -123,7 +119,7 @@ def generate_patient_events(patient_number):
             minutes=random_duration("Doctor Consultation")
         )
 
-    # Treatment and discharge.
+
     current_time += pd.Timedelta(minutes=random.randint(5, 20))
     events.append(("Treatment", current_time))
 
