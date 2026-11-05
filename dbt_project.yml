@@ -2,7 +2,6 @@
 name: 'careflow_setup'
 version: '1.0.0'
 
-# This setting configures which "profile" dbt uses for this project.
 profile: 'careflow_setup'
 
 # These configurations specify where dbt should look for different types of files.
@@ -15,6 +14,7 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
+
 clean-targets:         
   - "target"
   - "dbt_packages"
@@ -23,9 +23,6 @@ clean-targets:
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
-# In this example config, we tell dbt to build all models in the example/
-# directory as views. These settings can be overridden in the individual model
-# files using the `{{ config(...) }}` macro.
 models:
   careflow_setup:
     
