@@ -11,7 +11,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def main():
-    # Load event log
+    
     if not DATA_PATH.exists():
         raise FileNotFoundError(
             f"Event log not found: {DATA_PATH}"
@@ -19,7 +19,7 @@ def main():
 
     df = pd.read_csv(DATA_PATH)
 
-    # Identify the correct column names
+    
     patient_candidates = ["Patient_ID", "Case_ID", "case_id"]
     activity_candidates = ["Activity", "Activity_Name", "activity"]
     timestamp_candidates = [
@@ -42,7 +42,7 @@ def main():
     activity_col = find_column(activity_candidates)
     timestamp_col = find_column(timestamp_candidates)
 
-    # Standardize data for analysis
+    
     df[timestamp_col] = pd.to_datetime(
         df[timestamp_col], errors="coerce"
     )
@@ -58,7 +58,7 @@ def main():
         [patient_col, timestamp_col]
     ).reset_index(drop=True)
 
-    # Select triage-related events
+    
     triage_mask = df[activity_col].str.contains(
         "triage", case=False, na=False
     )
