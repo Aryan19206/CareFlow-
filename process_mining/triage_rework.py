@@ -1,7 +1,11 @@
 
-from pathlib import Path
-import pandas as pd
 
+import pandas as pd
+from pathlib import Path
+
+# --------------------------------------------------
+# CAREFLOW: TRIAGE REWORK LOOP DETECTION
+# --------------------------------------------------
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = PROJECT_ROOT / "data" / "raw" / "hospital_event_logs.csv"
@@ -11,7 +15,8 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def main():
-    
+
+    # Load event log
     if not DATA_PATH.exists():
         raise FileNotFoundError(
             f"Event log not found: {DATA_PATH}"
@@ -19,7 +24,7 @@ def main():
 
     df = pd.read_csv(DATA_PATH)
 
-    
+    # Identify the correct column names
     patient_candidates = ["Patient_ID", "Case_ID", "case_id"]
     activity_candidates = ["Activity", "Activity_Name", "activity"]
     timestamp_candidates = [
@@ -42,7 +47,7 @@ def main():
     activity_col = find_column(activity_candidates)
     timestamp_col = find_column(timestamp_candidates)
 
-    
+    # Standardize data for analysis
     df[timestamp_col] = pd.to_datetime(
         df[timestamp_col], errors="coerce"
     )
@@ -58,7 +63,7 @@ def main():
         [patient_col, timestamp_col]
     ).reset_index(drop=True)
 
-    
+    # Select triage-related events
     triage_mask = df[activity_col].str.contains(
         "triage", case=False, na=False
     )
@@ -80,11 +85,12 @@ def main():
         triage_counts["Triage_Event_Count"] > 1
     ].copy()
 
-    # Save all patients with repeated triage events
+    # Sort patients by repeated triage count
     rework_patients = rework_patients.sort_values(
         "Triage_Event_Count", ascending=False
     )
 
+    # Save results
     output_path = OUTPUT_DIR / "triage_rework_patients.csv"
     rework_patients.to_csv(output_path, index=False)
 
@@ -107,6 +113,7 @@ def main():
         print(f"Repeated-triage percentage: {percentage:.2f}%")
 
     print("\nPatients with repeated triage:")
+
     if rework_patients.empty:
         print("No repeated triage events found.")
     else:

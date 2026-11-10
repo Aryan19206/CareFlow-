@@ -1,0 +1,57 @@
+
+version: 2
+
+models:
+  - name: stg_event_logs
+    description: "Cleaned and standardized hospital event logs"
+
+    columns:
+      - name: case_id
+        description: "Unique patient case identifier"
+        tests:
+          - not_null
+
+      - name: activity
+        description: "Hospital activity performed"
+        tests:
+          - not_null
+
+      - name: event_timestamp
+        description: "Timestamp of the hospital activity"
+        tests:
+          - not_null
+
+      - name: event_id
+        description: "Unique event identifier"
+        tests:
+          - not_null
+
+
+  - name: fct_activity_summary
+    description: "Summary of hospital activities and patient counts."
+    columns:
+      - name: activity
+        description: "Hospital activity name."
+        tests:
+          - not_null
+          - unique
+
+      - name: total_events
+        description: "Total number of events for each activity."
+        tests:
+          - not_null
+
+      - name: unique_patients
+        description: "Number of unique patients for each activity."
+        tests:
+          - not_null
+
+      - name: first_occurrence
+        description: "First recorded occurrence of the activity."
+        tests:
+          - not_null
+
+      - name: last_occurrence
+        description: "Last recorded occurrence of the activity."
+        tests:
+          - not_null
